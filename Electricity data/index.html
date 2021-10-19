@@ -1,0 +1,380 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.8/d3.min.js" type="text/JavaScript"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand  navbar-dark bg-dark"><a class="navbar-brand" href="/">ElectricityData</a>
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="">Contact us</a></li>
+                <li class="nav-item"><a class="nav-link" href="">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid mt-1">
+        <div class="row">
+            <div class="col-md-12 border text-center">
+                <h3 class="text-center p-2">Electricity Generation in Canada per province (Jan-May,2021)</h3>
+                <svg class="barG text-center" style="width:100%; height: 550px;">
+                </svg><div class="text-center p-2">
+
+                <button class="btn btn-success" onclick="filtr('Jan_21')">Jan_21</button>
+                <button class="btn btn-success" onclick="filtr('Feb_21')">Feb_21</button>
+                <button class="btn btn-success" onclick="filtr('Mar_21')">Mar_21</button>
+                <button class="btn btn-success" onclick="filtr('Apr_21')">Apr_21</button>
+                <button class="btn btn-success" onclick="filtr('May_21')">May_21</button>
+            </div></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 border text-center p-3">
+                <h3 class="text-center p-2">Electricity sources (Jan-May 2021)</h3>
+                <svg class="pieC" style=" width:100%; height: 500px;">
+
+                </svg>
+                <div class="">
+                <span class="badge" style="background-color:#48acd5;">Hydro</span>
+               <span class="badge" style="background-color:#7b58b1;">Fuels</span>
+               <span class="badge" style="background-color:#ff7011;">Nuclear</span>
+               <span class="badge" style="background-color:#ffde25;">Wind</span>
+               <span class="badge" style="background-color:#e33625;">Solar</span>
+               <span class="badge" style="background-color:green;">others</span>
+             </div>
+                <div class="text-center p-3">  <button class="btn btn-success" onclick="filterPieData('Jan_21')">Jan_21</button>
+                <button class="btn btn-success" onclick="filterPieData('Feb_21')">Feb_21</button>
+                <button class="btn btn-success" onclick="filterPieData('Mar_21')">Mar_21</button>
+                <button class="btn btn-success" onclick="filterPieData('Apr_21')">Apr_21</button>
+                <button class="btn btn-success" onclick="filterPieData('May_21')">May_21</button>
+            </div></div>
+            <div class="col-md-6 border text-center p-3">
+                <h3 class="p-2 text-center">Electricity Generation Canada(2015-2021)</h3>
+                <svg class="lineG" style="width:100%; height: 500px;">
+
+                </svg>
+            </div>
+        </div>
+       
+    </div>
+
+
+    <script>
+        d3.csv('data/electricityGeneration2.csv', pieC);
+        d3.csv('data/electricityGeneration_perYear.csv', lineG);
+        d3.csv('data/electricityGeneration2.csv', barG);
+
+        var allPiedata=[];
+       
+        function pieC(data) {
+                 allPiedata = data.filter(function (ele) {
+                return ele.Geography == "Canada";// && ele.Type_of_electricity_generation !== "Total of all";
+            });
+
+            console.log(allPiedata);
+            filterPieData('Jan_21');
+           
+        }
+
+
+        function filterPieData(month){
+            d3.select("svg.pieC g").remove();
+            console.log("inside filter data");
+            var Month_21_percent = [];
+            var total=0;
+            allPiedata.forEach((element,i) => {
+                var monthDATAobj={};
+                if(i==0){
+                    total=element[month];
+                    }
+                    else{
+
+                monthDATAobj.type=element.Type_of_electricity_generation;
+                monthDATAobj.percent=element[month]* 100 / total;
+                Month_21_percent.push(monthDATAobj);
+                    }
+                
+            });
+            console.log(Month_21_percent);
+
+
+            var svg = d3.select("svg.pieC");
+            width = 600;
+            height = 500;
+            radius = 190;
+
+            var g = svg.append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            var ordScale = d3.scaleOrdinal(['#48acd5', '#ff7011', '#7b58b1', '#ffde25', '#e33625', 'green']);
+
+
+            var pie = d3.pie().value(function (d) {
+                return d.percent;
+            });
+
+            var arc = g.selectAll("arc")
+                .data(pie(Month_21_percent))
+                .enter();
+
+
+            var path = d3.arc()
+                .outerRadius(radius)
+                .innerRadius(0);
+
+            arc.append("path")
+                .attr("d", path)
+                .attr("fill",function(d,i){
+                    return ordScale(Month_21_percent[i].type);
+                })
+                .on('mouseover', function (d, i) {
+                    d3.select(this).transition()
+                        .duration('50')
+                        .attr('opacity', '.85');
+
+                }).on('mouseout', function (d, i) {
+                    d3.select(this).transition()
+                        .duration('50')
+                        .attr('opacity', '1');
+                });
+
+            var label = d3.arc()
+                .outerRadius(radius + 90)
+                .innerRadius(0);
+
+            arc.append("text")
+            .style("font-size",10)
+                .attr("transform", function (d) {
+                    return "translate(" + label.centroid(d) + ")";
+                })
+                .text(function(d,i){
+                    return Month_21_percent[i].percent.toFixed(1)+"%";
+                }).attr('dx','-1.2em')
+                .attr('dy','0');
+               
+               
+                arc.append("text")
+               
+                .attr("transform", function (d) {
+                    return "translate(" + label.centroid(d) + ")";
+                })
+              .text(function(d,i){
+                    return Month_21_percent[i].type;
+                })
+                .attr('dx','-1.5em')
+                .attr('dy','-1em')
+                .style("font-family", "arial")
+                .style("font-size", 10); 
+
+
+        }
+
+        function lineG(data) {
+
+
+            var minMaxY = d3.extent(data, d => d.Year);
+            var minMaxX = d3.extent(data, d => Number(d.Megawatts));
+
+
+            var xScale = d3.scaleLinear().domain([2014, 2020]).range([20, 400]);
+            var yScale = d3.scaleLinear().domain(minMaxX).range([400, 20]);
+
+            var xAxis = d3.axisBottom()
+                .scale(xScale)
+                .tickSize(405)
+                .tickValues([2014, 2015, 2016, 2017, 2018, 2019, 2020])
+                .tickFormat((d, i) => ['2014', '2015', '2016', '2017', '2018', '2019', '2020'][i]);
+
+            d3.select("svg.lineG")
+                .append("g").attr("class", "all").attr("transform", "translate(100,20)");
+            d3.select("g.all")
+                .append("g")
+                .attr("id", "xAxisG")
+                .transition().duration(3000)
+                .call(xAxis);
+
+            var yAxis = d3.axisLeft()
+                .scale(yScale).tickSize(-405).tickFormat(d=>{
+                return Math.abs(d) > 999 ? Math.sign(d)*((Math.abs(d)/1000).toFixed(1)) + 'k (MW)' : Math.sign(d)*Math.abs(d) +' (MW)';
+                
+              });
+
+            d3.select("g.all")
+                .append("g")
+                .attr("id", "yAxisG")
+                .transition().duration(3000)
+                .call(yAxis);
+
+            var dataLine = d3.line()
+          
+                .x(d => xScale(d.Year))
+                .y(d => yScale(d.Megawatts));
+
+            d3.select("g.all")
+                .append("path")
+                
+                .attr("d", dataLine(data))
+                .style("fill", "none")
+               
+                .style("stroke", "#48acd5")
+                .style("stroke-width", 2);
+
+
+            // years (2015-2021) text
+            d3.select("svg.lineG")
+                .append("g").attr("class", "textV")
+                .append("text")
+                .attr("x", width / 2 - 20).attr("y", 470)
+                .text("Years (2014-2020)")
+                .style("text-anchor", "middle")
+                .style("fill", "#48acd5");
+
+            //Megawatts text
+            d3.select("svg.lineG")
+                .append("g").attr("class", "textV")
+                .append("text")
+                .attr("x", -height / 2 + 20).attr("y", 30)
+                .attr("transform", "rotate(-90)")
+                .text("Megawatts Per hour")
+
+                .style("text-anchor", "middle")
+                .style("fill", "#48acd5");
+
+
+            d3.select(".lineG")
+                .on("mouseover", function () {
+                    d3.selectAll(".tick line")
+                        .style("stroke", "black");
+                }).on("mouseout", function () {
+                    d3.selectAll(".tick line")
+                        .style("stroke", "lightgray").style("opacity", 0.9);
+                });
+
+        }
+
+        var allCanadaBarG = [];
+        filtr('Feb_21');
+
+        function barG(data) {
+
+
+            allCanadaBarG = data.filter(function (ele) {
+                return ele.Type_of_electricity_generation == "Total of all" && ele.Geography !== "Canada";
+            });
+            filtr('Jan_21');
+        }
+
+      
+
+        function filtr(month) {
+
+           d3.select(".removeit").remove();
+        //   d3.select(".barG.textV").remove();
+            var monthD = [];
+            allCanadaBarG.forEach(element => {
+                var province = {};
+                province.name = element.Geography;
+                province.monthlyData = element[month];
+                monthD.push(province);
+            });
+         
+
+            var svg=d3.select("svg.barG"),
+            width=1024,
+            height=430;
+
+            var minMax=d3.extent(monthD,d=>Number(d.monthlyData));
+         
+
+            var xScale=d3.scaleBand().domain(monthD.map(d=>{return d.name;})).range([0,width]).padding(0.5),
+              yScale=d3.scaleLinear().domain(minMax).range([height,0]);
+
+
+              var g= svg.append("g").attr("class","removeit").attr("transform","translate("+130+","+30+")");
+             
+              var xAxis=d3.axisBottom(xScale).tickFormat((d, i) =>['Newfoundland','Prince Ed','Nova Scotia','N.Brunswich','Quebec','Ontario','Manitoba','Saskatchewan','Alberta','BC','Yukon','Northwest T.','Nunavut'][i]);
+
+              g.append("g")
+              .attr("transform","translate(0,"+height+")")
+              .transition().duration(3000)
+              .call(xAxis);
+
+              var yAxis=d3.axisLeft(yScale)
+              .tickFormat(d=>{
+                return Math.abs(d) > 999 ? Math.sign(d)*((Math.abs(d)/1000).toFixed(1)) + 'k (MW)' : Math.sign(d)*Math.abs(d) +' (MW)';
+              })
+              .ticks(13);
+                            
+              g.append("g")
+              .transition().duration(3000)
+              .call(yAxis);
+             
+
+               var colorScaleB=d3.scaleOrdinal(['#48acd5', '#ff7011', '#7b58b1', '#ffde25', '#e33625']);
+
+              g.selectAll(".bar")
+              .data(monthD)
+              .enter().append("rect")
+              .attr("class","bar")
+            
+              .attr("x",d=>{return xScale(d.name);})
+              .attr("y",d=>{return yScale(d.monthlyData);})
+              .attr("width",40)
+              .on("mouseover",function(d,i){
+                   d3.select("svg.barG")
+                   
+                   .append('line').attr("class","del")
+                   .transition().duration(300)
+                   .attr('x1',120).attr('y1',yScale(d.monthlyData)+30)
+                   .attr('x2',width+130).attr('y2',yScale(d.monthlyData)+30)
+                   .style("stroke",this.style.fill)
+                   .style("stroke-width",1)
+                   ;
+                }).on("mouseout",function(d,i){
+                   d3.select(".del").remove();
+                   
+                })
+
+              
+              .attr("height",d=>{return height-yScale(d.monthlyData);})
+              .transition()
+              .duration(500)
+              .ease(d3.easeLinear)
+              .style("fill",d=>colorScaleB(d.name));
+
+
+              d3.select("svg.barG")
+                .append("g").attr("class", "textV")
+                .append("text")
+                .attr("x", -height / 2 ).attr("y", 40)
+                .attr("transform", "rotate(-90)")
+                .text("Megawatts Per hour")
+
+                .style("text-anchor", "middle")
+                .style("fill", "#48acd5");
+
+                d3.select("svg.barG")
+                .append("g").attr("class", "textV")
+                .append("text")
+                .attr("x", width / 2 +130).attr("y", height+90)
+                .text("Electricity Generation per province")
+                .style("text-anchor", "middle")
+                .style("fill", "#48acd5");
+
+        }
+
+
+
+
+        
+    </script>
+    <footer class="footer-copyright text-center py-3 bg-dark navbar-dark text-white mt-5"> &copy; 2021 Copyright <a
+            href="/"> ElectricityData.com</a></footer>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+.tick line{
+    stroke:lightgray;opacity:0.9;
+}
+.all g path{
+    stroke: lightgray;
+    opacity:0.9;
+}

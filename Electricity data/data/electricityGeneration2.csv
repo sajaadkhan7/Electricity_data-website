@@ -1,0 +1,99 @@
+﻿Geography,Type_of_electricity_generation,Jan_21,Feb_21,Mar_21,Apr_21,May_21
+Canada,Total of all,61728305,57162090,56656641,48555490,48031162
+Canada,Hydro,38069727,35019571,33036325,29015313,26094554
+Canada,Nuclear,7637191,5103830,6604135,6414849,7556304
+Canada,Fuels,10022644,11359111,9931214,6737347,6565170
+Canada,Wind,2593648,3125903,4401310,2980870,3776693
+Canada,Solar,2488504,2142385,1465253,2591710,3626537
+Canada,Other,916591,511290,1218404,815401,411904
+Newfoundland and Labrador,Total of all,4705625,4263553,4577863,3450570,3035378
+Newfoundland and Labrador,Hydro,4521840,4063778,4375716,3300828,2938348
+Newfoundland and Labrador,Nuclear,0,0,0,0,0
+Newfoundland and Labrador,Fuels,166458,181240,183929,131434,79577
+Newfoundland and Labrador,Wind,17327,18535,18218,18308,17453
+Newfoundland and Labrador,Solar,0,0,0,0,0
+Newfoundland and Labrador,Other,0,0,0,0,0
+Prince Edward Island,Total of all,62792,55926,64126,54450,50974
+Prince Edward Island,Hydro,0,0,0,0,0
+Prince Edward Island,Nuclear,0,0,0,0,0
+Prince Edward Island,Fuels,743,416,481,491,444
+Prince Edward Island,Wind,62035,55473,63590,53908,50461
+Prince Edward Island,Solar,14,37,55,51,69
+Prince Edward Island,Other,0,0,0,0,0
+Nova Scotia,Total of all,980708,925651,933791,681770,655820
+Nova Scotia,Hydro,88301,75196,82365,120135,90151
+Nova Scotia,Nuclear,0,0,0,0,0
+Nova Scotia,Fuels,819820,770566,717234,446157,468761
+Nova Scotia,Wind,72587,79889,134192,115478,96908
+Nova Scotia,Solar,0,0,0,0,0
+Nova Scotia,Other,0,0,0,0,0
+New Brunswick,Total of all,1068333,966278,1196999,1150241,1013085
+New Brunswick,Hydro,245830,124093,212720,498891,343735
+New Brunswick,Nuclear,244926,14242,489303,259405,492195
+New Brunswick,Fuels,530449,753044,384362,317240,112127
+New Brunswick,Wind,47128,74899,110614,74705,65028
+New Brunswick,Solar,0,0,0,0,0
+New Brunswick,Other,0,0,0,0,0
+Quebec,Total of all,22566641,20891946,19810314,15987038,15514916
+Quebec,Hydro,21682938,19921156,18208591,15047779,14495388
+Quebec,Nuclear,0,0,0,0,0
+Quebec,Fuels,184608,171821,185392,170203,168052
+Quebec,Wind,699044,798901,1416218,768921,851327
+Quebec,Solar,51,68,113,135,149
+Quebec,Other,0,0,0,0,0
+Ontario,Total of all,13306022,12291788,12111807,11339137,11697079
+Ontario,Hydro,3556575,3211871,3230319,2927633,2979468
+Ontario,Nuclear,7392265,6089588,6114832,6655444,7064109
+Ontario,Fuels,1281588,1647344,966898,421924,539930
+Ontario,Wind,988001,1201735,1541758,1055442,822388
+Ontario,Solar,87593,141250,258000,278694,291176
+Ontario,Other,0,0,0,0,8
+Manitoba,Total of all,3235244,2707301,2944794,2632629,2869499
+Manitoba,Hydro,3151123,2623649,2840772,2527216,2777733
+Manitoba,Nuclear,0,0,0,0,0
+Manitoba,Fuels,13141,9822,10170,11002,7802
+Manitoba,Wind,70954,73816,93614,94165,83669
+Manitoba,Solar,26,14,238,246,295
+Manitoba,Other,0,0,0,0,0
+Saskatchewan,Total of all,2281749,2245203,2135480,1982664,1968957
+Saskatchewan,Hydro,324945,318831,321178,271234,234236
+Saskatchewan,Nuclear,0,0,0,0,0
+Saskatchewan,Fuels,1852913,1836647,1720698,1635661,1663087
+Saskatchewan,Wind,92938,82601,82219,66124,62066
+Saskatchewan,Solar,0,0,0,0,0
+Saskatchewan,Other,10953,7124,11385,9645,9568
+Alberta,Total of all,6262215,6030155,6062935,5482314,5654848
+Alberta,Hydro,127933,131485,139332,144460,189323
+Alberta,Nuclear,0,0,0,0,0
+Alberta,Fuels,5471402,5431536,5186230,4727804,5019073
+Alberta,Wind,656480,462047,723951,592289,409992
+Alberta,Solar,762,921,6403,12005,34132
+Alberta,Other,5638,4166,7019,5756,2328
+British Columbia,Total of all,7119125,6643728,6680821,5674224,5463171
+British Columbia,Hydro,6298763,5879268,5951480,4914025,4891566
+British Columbia,Nuclear,0,0,0,0,0
+British Columbia,Fuels,534332,487106,514489,620302,454831
+British Columbia,Wind,285972,277262,214418,139362,116086
+British Columbia,Solar,58,92,434,535,688
+British Columbia,Other,0,0,0,0,0
+Yukon,Total of all,51995,60894,51386,45233,37229
+Yukon,Hydro,44154,47843,48372,42325,35144
+Yukon,Nuclear,0,0,0,0,0
+Yukon,Fuels,7841,13051,3014,2908,2085
+Yukon,Wind,0,0,0,0,0
+Yukon,Solar,0,0,0,0,0
+Yukon,Other,0,0,0,0,0
+Northwest Territories,Total of all,69460,62679,67774,59144,54741
+Northwest Territories,Hydro,27325,22401,25480,20787,19462
+Northwest Territories,Nuclear,0,0,0,0,0
+Northwest Territories,Fuels,40953,39530,39766,36145,33936
+Northwest Territories,Wind,1182,745,2518,2168,1315
+Northwest Territories,Solar,0,3,10,44,28
+Northwest Territories,Other,0,0,0,0,0
+Nunavut,Total of all,18396,16988,18551,16076,15465
+Nunavut,Hydro,0,0,0,0,0
+Nunavut,Nuclear,0,0,0,0,0
+Nunavut,Fuels,18396,16988,18551,16076,15465
+Nunavut,Wind,0,0,0,0,0
+Nunavut,Solar,0,0,0,0,0
+Nunavut,Other,0,0,0,0,0
